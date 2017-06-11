@@ -27,8 +27,10 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Seven7Decompressor {
-  private static File file = new File("/");
-  private static String[] stubs = Stream.of("some", "strings", "to", "try").toArray(String[]::new);
+  private static File file = new File("/Users/jstewart/Documents/Compressed\\ file\\ 2.7z");
+
+
+  private static String[] stubs = Stream.of("some", "strings", "to", "try", "jared", "this", "is", "a", "test").toArray(String[]::new);
 
   public static SevenZFile decompress(File file, String password) throws IOException {
     byte[] passwordBytes = password.getBytes(Charsets.UTF_16LE);
@@ -54,7 +56,7 @@ public class Seven7Decompressor {
     return null;
   }
 
-  private static SevenZFile crack(File file) {
+  public static SevenZFile crack(File file) {
     return IntStream.range(1, 10)
         .mapToObj(Seven7Decompressor::tryPasswordCombinations)
         .filter(Objects::nonNull)
