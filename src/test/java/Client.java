@@ -17,21 +17,35 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.commons.compress.archivers.sevenz.SevenZFile;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Client {
+  private static final File file = new File("/Users/jstewart/Documents/encrypted.7z");
+
+  @BeforeClass
+  public static void setup() {
+    assertTrue(file.exists());
+  }
 
   @Test
-  public void decrypt() {
-    File file = new File("/Users/jstewart/Documents/Compressed\\ file\\ 2.7z");
-
-    assertTrue(file.exists());
-
-    SevenZFile result = Seven7Decompressor.crack(file);
+  public void testCrack() {
+    SevenZFile result =  Seven7Decompressor.crack(file);
 
     assertNotNull(result);
+  }
+
+
+  @Test
+  public void testDecrypt() throws IOException {
+      SevenZFile result = Seven7Decompressor.decompress(file, "jaredthisisatest");
+      assertNotNull(result);
+
+    System.out.println(result.getEntries());
   }
 
 }
